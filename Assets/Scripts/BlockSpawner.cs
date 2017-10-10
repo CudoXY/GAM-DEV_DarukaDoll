@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class BlockSpawner : MonoBehaviour {
 
-	//parameters
-	public const string SPAWN_MAX_COUNT = "SPAWN_MAX_COUNT";
-
-
-	[Header("Spawn Details")]
-	[SerializeField] int spawnMax;
-
 
 	[Header("Spawn Reference")]
 	[SerializeField] GameObject blockParent;
@@ -26,24 +19,15 @@ public class BlockSpawner : MonoBehaviour {
 		//add observer that notifies ui whenever block is clicked
 		EventBroadcaster.Instance.AddObserver (BlockEventNames.ON_BLOCK_CLICKED, this.OnBlockClicked);
 
-		for (int i = 0; i < spawnMax; i++) {
+		for (int i = 0; i < LevelManager.Instance.GetGoalHitCount(); i++) {
 			SpawnEntity ();	
 		}
 
 
 
 	}
-	
-	// Update is called once per frame
-	void Update () {	
-		if (!isInitialized) {
-			//initialize game stats (that are connected with ui//
-			Parameters parameters = new Parameters ();
-			parameters.PutExtra (SPAWN_MAX_COUNT, spawnMax);
-			EventBroadcaster.Instance.PostEvent (EventNames.ON_START_GAME, parameters);
-			isInitialized = true;
-		}
-		
+
+	void Update () {
 	}
 
 	void OnBlockClicked(Parameters parameter){

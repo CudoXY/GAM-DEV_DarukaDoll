@@ -33,13 +33,12 @@ public class PlayingScreen : View
     {
 		//TODO: Dyan: I'm trying to make this dependent with BlockSpawner
 		//goalHitCount = 10;
+		goalHitCount = LevelManager.Instance.GetGoalHitCount(); 
 
         lblTimeLeft.text = "TIME LEFT: " + timeLeft;
         EventBroadcaster.Instance.AddObserver(EventNames.ON_CORRECT, OnCorrect);
         EventBroadcaster.Instance.AddObserver(EventNames.ON_WRONG, OnWrong);
 
-		//this is for initializing game stats conected with UI 
-		EventBroadcaster.Instance.AddObserver (EventNames.ON_START_GAME, InitializeStats);
 
     }
 
@@ -47,7 +46,6 @@ public class PlayingScreen : View
     {
         EventBroadcaster.Instance.RemoveObserver(EventNames.ON_CORRECT);
         EventBroadcaster.Instance.RemoveObserver(EventNames.ON_WRONG);
-		EventBroadcaster.Instance.RemoveObserver (EventNames.ON_START_GAME);
     }
 
     // Update is called once per frame
@@ -102,10 +100,5 @@ public class PlayingScreen : View
         ViewHandler.Instance.Show(ViewNames.DialogNames.GAMEOVER_DIALOG_NAME);
         isGameOver = true;
     }
-
-	void InitializeStats(Parameters parameter){
-		Debug.Log ("hi");
-		int spawnMaxCount = parameter.GetIntExtra (BlockSpawner.SPAWN_MAX_COUNT, 0);
-		goalHitCount = spawnMaxCount;
-	}
+		
 }
