@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df87af803f8ecb4585cb6f61052ee07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asRootScreen: 0
+  asRootScreen: 1
   entranceType: 0
   exitType: 0
   btnPlayAgain: {fileID: 114241270118397720}
