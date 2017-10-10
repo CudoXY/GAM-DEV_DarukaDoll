@@ -16,21 +16,24 @@ public class Block : MonoBehaviour {
         this.image = GetComponent<Image>();
         this.Color = color;
 
+        var spriteList = Resources.LoadAll<Sprite>("Sprites/spritesheet");
+        Sprite sprite = null;
+
         switch (color)
         {
             case BlockColor.RED:
-                this.image.color = UnityEngine.Color.red;
+                sprite = spriteList[5];
                 break;
             case BlockColor.GREEN:
-                this.image.color = UnityEngine.Color.green;
+                sprite = spriteList[8];
                 break;
             case BlockColor.BLUE:
-                this.image.color = UnityEngine.Color.blue;
+                sprite = spriteList[0];
                 break;
         }
 
+        this.image.sprite = sprite;
+
         // TODO: Insert sprite banana
     }
-
-
 }

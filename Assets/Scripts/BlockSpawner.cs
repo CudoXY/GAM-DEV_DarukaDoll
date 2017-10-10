@@ -38,6 +38,8 @@ public class BlockSpawner : MonoBehaviour {
 		for (var i = 0; i < LevelManager.Instance.GetGoalHitCount(); i++) {
 			SpawnEntity ();	
 		}
+
+        Debug.Log(GetBottomBlock().Color);
 	}
 
     void OnDestroy()
@@ -65,5 +67,6 @@ public class BlockSpawner : MonoBehaviour {
 	    var block = spawnedEntity[spawnedEntity.Count - 1];
 		spawnedEntity.RemoveAt(spawnedEntity.Count - 1);
         Destroy(block);
+        Debug.Log(GetBottomBlock().Color);
 	}
 }
