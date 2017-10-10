@@ -38,9 +38,9 @@ public class BlockSpawner : MonoBehaviour {
 	void Update () {
 		if (!isInitialized) {
 			//initialize game stats (that are connected with ui//
-			Parameters parameter = new Parameters ();
-			parameter.PutExtra (SPAWN_MAX_COUNT, spawnMax);
-			EventBroadcaster.Instance.PostEvent (EventNames.ON_START_GAME, parameter);
+			Parameters parameters = new Parameters ();
+			parameters.PutExtra (SPAWN_MAX_COUNT, spawnMax);
+			EventBroadcaster.Instance.PostEvent (EventNames.ON_START_GAME, parameters);
 			isInitialized = true;
 		}
 		
@@ -56,6 +56,11 @@ public class BlockSpawner : MonoBehaviour {
 		if (spawnedEntity [spawnedEntity.Count - 1].GetComponent<Block> ().MyColor.Key.ToString () == key) {
 			DeSpawnEntity (spawnedEntity [spawnedEntity.Count - 1].gameObject, spawnedEntity.Count - 1);
 			EventBroadcaster.Instance.PostEvent (EventNames.ON_CORRECT);
+
+
+
+
+
 		} else {
 			EventBroadcaster.Instance.PostEvent (EventNames.ON_WRONG);
 		}
