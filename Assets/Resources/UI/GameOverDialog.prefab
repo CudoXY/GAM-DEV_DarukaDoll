@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 114454931212225546}
   - component: {fileID: 114290568855134968}
   m_Layer: 5
-  m_Name: Text
+  m_Name: lblHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 114241270118397720}
   - component: {fileID: 114234570103967714}
   m_Layer: 5
-  m_Name: ConfirmButton
+  m_Name: btnPlayAgain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,7 +91,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224331124786393742}
   - component: {fileID: 222874211060184324}
-  - component: {fileID: 114044629928469118}
   - component: {fileID: 114563074081954608}
   m_Layer: 5
   m_Name: GameOverDialog
@@ -127,23 +126,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114044629928469118
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1951454862349176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34571c62060501b4eb77cb65b2c5d500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  asRootScreen: 0
-  entranceType: 0
-  exitType: 0
-  messageText: {fileID: 114454931212225546}
-  closeButton: {fileID: 114241270118397720}
-  confirmText: {fileID: 114141131652638624}
 --- !u!114 &114141131652638624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,11 +287,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 50
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 50
+    m_MaxSize: 55
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -328,6 +310,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb11050b931f6cc40ae8761892b3e725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asRootScreen: 0
+  entranceType: 0
+  exitType: 0
+  btnPlayAgain: {fileID: 114241270118397720}
 --- !u!222 &222059680318646432
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -374,7 +360,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.0000076294, y: 47}
+  m_AnchoredPosition: {x: 0, y: 82.5}
   m_SizeDelta: {x: 179.5, y: 52.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224181566175826402
@@ -394,8 +380,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 5.6}
-  m_SizeDelta: {x: -60, y: -195.6}
+  m_AnchoredPosition: {x: 0, y: -18.7}
+  m_SizeDelta: {x: -390.3, y: -292.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224314296554692020
 RectTransform:

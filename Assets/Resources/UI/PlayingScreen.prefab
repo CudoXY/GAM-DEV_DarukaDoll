@@ -197,7 +197,8 @@ MonoBehaviour:
   asRootScreen: 0
   entranceType: 0
   exitType: 0
-  timeLeft: 5
+  timeLeft: 10
+  goalHitCount: 50
   correctHits: 0
   wrongHits: 0
   lblCorrect: {fileID: 114206636137285090}

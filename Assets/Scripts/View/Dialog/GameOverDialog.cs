@@ -1,8 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class GameOverDialog : MonoBehaviour {
+public class GameOverDialog : View
+{
+    [SerializeField]
+    private Button btnPlayAgain;
 
     public void btnPlayAgain_Click()
     {

@@ -16,5 +16,6 @@ public class ViewNames {
 		public const string TWO_CHOICE_DIALOG_NAME = "TwoChoiceDialog";
         public const string NOTIFICATION_DIALOG_NAME = "NotificationDialog";
         public const string GAMEOVER_DIALOG_NAME = "GameOverDialog";
+        public const string RESULT_DIALOG_NAME = "ResultDialog";
 	}
 }

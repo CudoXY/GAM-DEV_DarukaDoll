@@ -1,51 +1,53 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayingScreen : View {
+public class PlayingScreen : View
+{
+    [SerializeField]
+    private int timeLeft;
 
-	[SerializeField]
-	private int timeLeft;
+    [SerializeField]
+    private int goalHitCount;
 
-	[SerializeField]
-	private int correctHits;
+    [SerializeField]
+    private int correctHits;
 
-	[SerializeField]
-	private int wrongHits;
+    [SerializeField]
+    private int wrongHits;
 
-	[SerializeField]
-	private Text lblCorrect;
+    [SerializeField]
+    private Text lblCorrect;
 
-	[SerializeField]
-	private Text lblWrong;
+    [SerializeField]
+    private Text lblWrong;
 
-	[SerializeField]
-	private Text lblTimeLeft;
+    [SerializeField]
+    private Text lblTimeLeft;
 
-	// Next update in second
-	private int nextUpdate=1;
+    // Next update in second
+    private int nextUpdate = 1;
 
     private bool isGameOver;
 
-	// Use this for initialization
-	void Start () {
-		lblTimeLeft.text = "TIME LEFT: " + timeLeft;	
-		EventBroadcaster.Instance.AddObserver (EventNames.ON_CORRECT, OnCorrect);
-		EventBroadcaster.Instance.AddObserver (EventNames.ON_WRONG, OnWrong);
-	}
+    // Use this for initialization
+    private void Start()
+    {
+        lblTimeLeft.text = "TIME LEFT: " + timeLeft;
+        EventBroadcaster.Instance.AddObserver(EventNames.ON_CORRECT, OnCorrect);
+        EventBroadcaster.Instance.AddObserver(EventNames.ON_WRONG, OnWrong);
+    }
 
-	void OnDestroy()
-	{
-		EventBroadcaster.Instance.RemoveObserver (EventNames.ON_CORRECT);
-		EventBroadcaster.Instance.RemoveObserver (EventNames.ON_WRONG);
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	    if (isGameOver)
-	        return;
+    private void OnDestroy()
+    {
+        EventBroadcaster.Instance.RemoveObserver(EventNames.ON_CORRECT);
+        EventBroadcaster.Instance.RemoveObserver(EventNames.ON_WRONG);
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        if (isGameOver)
+            return;
 
         // TODO: Remove after implementation
         if (Input.GetKeyUp(KeyCode.Z))
@@ -54,40 +56,50 @@ public class PlayingScreen : View {
         if (Input.GetKeyUp(KeyCode.X))
             EventBroadcaster.Instance.PostEvent(EventNames.ON_WRONG);
 
+        // If the next update is reached
+        if (Time.time >= nextUpdate)
+        {
+            nextUpdate = Mathf.FloorToInt(Time.time) + 1;
+            UpdateEverySecond();
+        }
+    }
 
-		// If the next update is reached
-		if (Time.time>=nextUpdate){
-			nextUpdate=Mathf.FloorToInt(Time.time)+1;
-			UpdateEverySecond();
-		}
-	}
+    private void OnCorrect()
+    {
+        correctHits++;
+        lblCorrect.text = "CORRECT: " + correctHits;
 
-	void OnCorrect()
-	{
-		correctHits++;
-		lblCorrect.text = "CORRECT: " + correctHits;	
-	}
+        if (correctHits != goalHitCount)
+            return;
 
-	void OnWrong()
-	{
-		wrongHits++;
-		lblWrong.text = "WRONG: " + wrongHits;	
-	}
-		
-	// Update is called once per second
-	void UpdateEverySecond(){
-		timeLeft--;
-		lblTimeLeft.text = "TIME LEFT: " + timeLeft;
+        isGameOver = true;
 
-	    if (timeLeft != 0)
+        // Show result screen
+        var dlgResult = (ResultDialog) ViewHandler.Instance.Show(ViewNames.DialogNames.RESULT_DIALOG_NAME);
+        dlgResult.SetResult(correctHits, wrongHits);
+    }
+
+    private void OnWrong()
+    {
+        wrongHits++;
+        lblWrong.text = "WRONG: " + wrongHits;
+    }
+
+    // Update is called once per second
+    private void UpdateEverySecond()
+    {
+        timeLeft--;
+        lblTimeLeft.text = "TIME LEFT: " + timeLeft;
+
+        if (timeLeft != 0)
             return;
 
         ShowGameOver();
-	}
+    }
 
-    void ShowGameOver()
+    private void ShowGameOver()
     {
-	    ViewHandler.Instance.Show(ViewNames.DialogNames.GAMEOVER_DIALOG_NAME);
-	    isGameOver = true;
+        ViewHandler.Instance.Show(ViewNames.DialogNames.GAMEOVER_DIALOG_NAME);
+        isGameOver = true;
     }
 }
