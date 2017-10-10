@@ -6,15 +6,12 @@ using System.Collections;
  * Created By: NeilDG
  */ 
 public class EventNames {
-	public const string ON_UPDATE_SCORE = "ON_UPDATE_SCORE";
-	public const string ON_CORRECT_MATCH = "ON_CORRECT_MATCH";
-	public const string ON_WRONG_MATCH = "ON_WRONG_MATCH";
-	public const string ON_INCREASE_LEVEL = "ON_INCREASE_LEVEL";
 
-	public const string ON_PICTURE_CLICKED = "ON_PICTURE_CLICKED";
-
-	public const string ON_CORRECT = "ON_CORRECT";
+    public const string ON_CORRECT = "ON_CORRECT";
 	public const string ON_WRONG = "ON_WRONG";
+
+    public const string ON_BLOCKCLICK = "ON_BLOCKCLICK";
+    public const string REMOVE_BLOCK = "REMOVE_BLOCK";
 
 	public const string ON_WIN = "ON_WIN";
 	public const string ON_LOSE = "ON_LOSE";

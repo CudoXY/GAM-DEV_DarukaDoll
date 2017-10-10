@@ -13,13 +13,13 @@ public class Player : MonoBehaviour {
     private Text lblWrong;
 
     [SerializeField]
-    private KeyCode keyRed;
+    public KeyCode keyRed;
 
     [SerializeField]
-    private KeyCode keyGreen;
+    public KeyCode keyGreen;
 
     [SerializeField]
-    private KeyCode keyBlue;
+    public KeyCode keyBlue;
 
     private int correctHits;
     private int wrongHits;
@@ -35,6 +35,27 @@ public class Player : MonoBehaviour {
     {
         EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.ON_CORRECT, this.OnCorrect);
         EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.ON_WRONG, this.OnWrong);
+    }
+
+    private void Update()
+    {
+        if (!Input.anyKeyDown)
+            return;
+
+        var parameters = new Parameters();
+        parameters.PutExtra(MatchHandler.PARAM_TARGETCOLOR, (int) BlockSpawner.Instance.GetBottomBlock().Color);
+
+        var playerControls = new [] {keyRed, keyBlue, keyGreen};
+
+        for (var i = 0; i < playerControls.Length; i++)
+        {
+            if (!Input.GetKey(playerControls[i]))
+                continue;
+
+            parameters.PutObjectExtra(MatchHandler.PARAM_KEY_PRESSED, playerControls[i]);
+            EventBroadcaster.Instance.PostEvent(EventNames.ON_BLOCKCLICK, parameters);
+            break;
+        }
     }
 
     private void OnCorrect()

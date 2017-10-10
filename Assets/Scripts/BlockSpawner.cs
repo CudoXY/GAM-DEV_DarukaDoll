@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class BlockSpawner : MonoBehaviour {
 
@@ -13,57 +15,55 @@ public class BlockSpawner : MonoBehaviour {
 	[SerializeField] List<GameObject> spawnedEntity;
 
 	bool isInitialized = false;
+    private Random random;
+
+    public static BlockSpawner Instance { get; private set; }
+
+    //Awake is always called before any Start functions
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
+    }
 
 	// Use this for initialization
-	void Start () {
-		//add observer that notifies ui whenever block is clicked
-		EventBroadcaster.Instance.AddObserver (BlockEventNames.ON_BLOCK_CLICKED, this.OnBlockClicked);
+	void Start ()
+	{
+        EventBroadcaster.Instance.AddObserver(EventNames.REMOVE_BLOCK, this.DestroyBottom);
 
-		for (int i = 0; i < LevelManager.Instance.GetGoalHitCount(); i++) {
+	    random = new Random();
+
+		for (var i = 0; i < LevelManager.Instance.GetGoalHitCount(); i++) {
 			SpawnEntity ();	
 		}
-
-
-
 	}
 
-	void OnBlockClicked(Parameters parameter){
-		string key = parameter.GetStringExtra (KeyInputHandler.KEY_PRESSED, "");
-
-		if (CheckIfNoBlock()) {
-			return;
-		}
-
-		if (spawnedEntity [spawnedEntity.Count - 1].GetComponent<Block> ().MyColor.Key.ToString () == key) {
-			DeSpawnEntity (spawnedEntity [spawnedEntity.Count - 1].gameObject, spawnedEntity.Count - 1);
-			EventBroadcaster.Instance.PostEvent (EventNames.ON_CORRECT);
-		} else {
-			EventBroadcaster.Instance.PostEvent (EventNames.ON_WRONG);
-		}
-
-	}
+    void OnDestroy()
+    {
+        EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.REMOVE_BLOCK, this.DestroyBottom);
+    }
 
 	public void SpawnEntity(){
-		GameObject block = Instantiate (blockPrefab.gameObject);
+		var block = Instantiate (blockPrefab.gameObject);
 		block.transform.SetParent (blockParent.transform);
 		block.transform.localScale = Vector3.one;
+
+	    var colorList = Enum.GetValues(typeof(BlockColor));
+        block.GetComponent<Block>().SetColor((BlockColor) colorList.GetValue(random.Next(0, colorList.Length)));
 		spawnedEntity.Add (block);
 	}
 
+    public Block GetBottomBlock()
+    {
+        return spawnedEntity[spawnedEntity.Count - 1].gameObject.GetComponent<Block>();
+    }
 
-
-	void DeSpawnEntity(GameObject entity, int index){
-		GameObject b = entity.gameObject;
-
-		spawnedEntity.RemoveAt (index);
-		Destroy (b);
-	}
-
-	bool CheckIfNoBlock(){
-		if (spawnedEntity.Count <= 0) {
-			EventBroadcaster.Instance.PostEvent (EventNames.ON_WIN);
-			return true;
-		}
-		return false;
+	void DestroyBottom()
+	{
+	    var block = spawnedEntity[spawnedEntity.Count - 1];
+		spawnedEntity.RemoveAt(spawnedEntity.Count - 1);
+        Destroy(block);
 	}
 }

@@ -1,34 +1,36 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Block : MonoBehaviour {
 
-	[SerializeField] BlockColor myColor;
+	[SerializeField]
+    public BlockColor Color;
 
-	Image image;
+	private Image image;
 
-	// Use this for initialization
-	void Start () {
-		//insert randomize color here
+    public void SetColor(BlockColor color)
+    {
+        this.image = GetComponent<Image>();
+        this.Color = color;
 
+        switch (color)
+        {
+            case BlockColor.RED:
+                this.image.color = UnityEngine.Color.red;
+                break;
+            case BlockColor.GREEN:
+                this.image.color = UnityEngine.Color.green;
+                break;
+            case BlockColor.BLUE:
+                this.image.color = UnityEngine.Color.blue;
+                break;
+        }
 
-		myColor = BlockColor.ALL [Random.Range (0, BlockColor.ALL.Length)];
-		image = GetComponent<Image>();
-		image.color = myColor.MyColor;
+        // TODO: Insert sprite banana
+    }
 
-	}
-
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	public BlockColor MyColor{
-		get{
-			return myColor;
-		}
-	}
 
 }
