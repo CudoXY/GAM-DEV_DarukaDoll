@@ -241,6 +241,15 @@ Prefab:
       propertyPath: firstScreen
       value: PlayingScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 1076871702826950, guid: 3a7badae042359b4ea2f0576b6c975c9, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 81001900094470296, guid: 3a7badae042359b4ea2f0576b6c975c9,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a7badae042359b4ea2f0576b6c975c9, type: 2}
   m_IsPrefabParent: 0

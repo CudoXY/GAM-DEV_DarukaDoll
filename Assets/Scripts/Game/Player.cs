@@ -37,21 +37,6 @@ public class Player : MonoBehaviour {
         EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.ON_WRONG, this.OnWrong);
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (LevelManager.Instance.IsGameOver())
-            return;
-
-        // TODO: Remove after implementation
-        if (Input.GetKeyUp(keyRed))
-            EventBroadcaster.Instance.PostEvent(EventNames.ON_CORRECT);
-
-        if (Input.GetKeyUp(keyGreen))
-            EventBroadcaster.Instance.PostEvent(EventNames.ON_WRONG);
-    }
-
-
     private void OnCorrect()
     {
         correctHits++;
@@ -64,7 +49,7 @@ public class Player : MonoBehaviour {
         parameters.PutExtra(LevelManager.PARAM_WIN_CORRECT_COUNT, correctHits);
         parameters.PutExtra(LevelManager.PARAM_WIN_WRONG_COUNT, wrongHits);
 
-        EventBroadcaster.Instance.PostEvent(EventNames.PLAYER_WIN, parameters);
+        EventBroadcaster.Instance.PostEvent(EventNames.ON_WIN, parameters);
     }
 
     private void OnWrong()

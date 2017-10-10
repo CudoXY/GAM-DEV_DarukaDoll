@@ -35,12 +35,12 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
 
         this.timeLeft = this.maxTime;
-        EventBroadcaster.Instance.AddObserver(EventNames.PLAYER_WIN, this.ShowWinScreen);
+        EventBroadcaster.Instance.AddObserver(EventNames.ON_WIN, this.ShowWinScreen);
     }
 
     void OnDestroy()
     {
-        EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.PLAYER_WIN, this.ShowWinScreen);
+        EventBroadcaster.Instance.RemoveActionAtObserver(EventNames.ON_WIN, this.ShowWinScreen);
     }
 
     // Update is called once per frame

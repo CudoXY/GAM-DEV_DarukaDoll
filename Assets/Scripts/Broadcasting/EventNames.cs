@@ -14,9 +14,10 @@ public class EventNames {
 	public const string ON_PICTURE_CLICKED = "ON_PICTURE_CLICKED";
 
 	public const string ON_CORRECT = "ON_CORRECT";
-    public const string ON_WRONG = "ON_WRONG";
+	public const string ON_WRONG = "ON_WRONG";
 
-    public const string PLAYER_WIN = "PLAYER_WIN";
+	public const string ON_WIN = "ON_WIN";
+	public const string ON_LOSE = "ON_LOSE";
 }
 
 
