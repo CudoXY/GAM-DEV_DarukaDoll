@@ -40,8 +40,11 @@ public class BlockSpawner : MonoBehaviour {
 		if (spawnedEntity.Count <= 0)
 			return;
 
-		if (spawnedEntity [spawnedEntity.Count-1].GetComponent<Block> ().MyColor.Key.ToString () == key) {
-			DeSpawnEntity (spawnedEntity[spawnedEntity.Count-1].gameObject, spawnedEntity.Count-1);
+		if (spawnedEntity [spawnedEntity.Count - 1].GetComponent<Block> ().MyColor.Key.ToString () == key) {
+			DeSpawnEntity (spawnedEntity [spawnedEntity.Count - 1].gameObject, spawnedEntity.Count - 1);
+			EventBroadcaster.Instance.PostEvent (EventNames.ON_CORRECT);
+		} else {
+			EventBroadcaster.Instance.PostEvent (EventNames.ON_WRONG);
 		}
 
 	}
