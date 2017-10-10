@@ -5,12 +5,11 @@ using UnityEngine.UI;
 
 public class BlockColor {
 	// The different values
-
 	public static List<BlockColor> Types = new List<BlockColor>();
 
-	public static readonly BlockColor RED = new BlockColor(0, "Red", Color.red, (Sprite)Resources.LoadAll("Sprites/spritesheet")[0], KeyCode.A);
-	public static readonly BlockColor BLUE = new BlockColor(1, "Blue", Color.blue, (Sprite)Resources.LoadAll("Sprites/spritesheet")[1], KeyCode.S);
-	public static readonly BlockColor GREEN = new BlockColor(2, "Green", Color.green, (Sprite)Resources.LoadAll("Sprites/spritesheet")[2], KeyCode.D);
+	public static readonly BlockColor RED = new BlockColor(0, "Red", Color.red, (Sprite)Resources.LoadAll<Sprite>("Sprites/spritesheet")[0], KeyCode.A);
+	public static readonly BlockColor BLUE = new BlockColor(1, "Blue", Color.blue, (Sprite)Resources.LoadAll<Sprite>("Sprites/spritesheet")[5], KeyCode.S);
+	public static readonly BlockColor GREEN = new BlockColor(2, "Green", Color.green, (Sprite)Resources.LoadAll<Sprite>("Sprites/spritesheet")[8], KeyCode.D);
 
 
 	// Use readonly to maintain immutability
