@@ -21,7 +21,6 @@ public class PlayingScreen : View
     [SerializeField]
     private Text lblTimeLeft;
 
-
 	private int goalHitCount;
 
     // Next update in second
@@ -32,12 +31,15 @@ public class PlayingScreen : View
     // Use this for initialization
     private void Start()
     {
+		//TODO: Dyan: I'm trying to make this dependent with BlockSpawner
+		goalHitCount = 10;
+
         lblTimeLeft.text = "TIME LEFT: " + timeLeft;
         EventBroadcaster.Instance.AddObserver(EventNames.ON_CORRECT, OnCorrect);
         EventBroadcaster.Instance.AddObserver(EventNames.ON_WRONG, OnWrong);
 
 		//this is for initializing game stats conected with UI 
-		EventBroadcaster.Instance.AddObserver (EventNames.ON_START_GAME, this.InitializeStats);
+		EventBroadcaster.Instance.AddObserver (EventNames.ON_START	_GAME, this.InitializeStats);
 
     }
 
