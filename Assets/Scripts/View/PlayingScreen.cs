@@ -7,9 +7,6 @@ public class PlayingScreen : View
     private int timeLeft;
 
     [SerializeField]
-    private int goalHitCount;
-
-    [SerializeField]
     private int correctHits;
 
     [SerializeField]
@@ -24,6 +21,9 @@ public class PlayingScreen : View
     [SerializeField]
     private Text lblTimeLeft;
 
+
+	private int goalHitCount;
+
     // Next update in second
     private int nextUpdate = 1;
 
@@ -35,12 +35,17 @@ public class PlayingScreen : View
         lblTimeLeft.text = "TIME LEFT: " + timeLeft;
         EventBroadcaster.Instance.AddObserver(EventNames.ON_CORRECT, OnCorrect);
         EventBroadcaster.Instance.AddObserver(EventNames.ON_WRONG, OnWrong);
+
+		//this is for initializing game stats conected with UI 
+		EventBroadcaster.Instance.AddObserver (EventNames.ON_START_GAME, this.InitializeStats);
+
     }
 
     private void OnDestroy()
     {
         EventBroadcaster.Instance.RemoveObserver(EventNames.ON_CORRECT);
         EventBroadcaster.Instance.RemoveObserver(EventNames.ON_WRONG);
+		EventBroadcaster.Instance.RemoveObserver (EventNames.ON_START_GAME);
     }
 
     // Update is called once per frame
@@ -48,13 +53,6 @@ public class PlayingScreen : View
     {
         if (isGameOver)
             return;
-
-        // TODO: Remove after implementation
-        if (Input.GetKeyUp(KeyCode.Z))
-            EventBroadcaster.Instance.PostEvent(EventNames.ON_CORRECT);
-
-        if (Input.GetKeyUp(KeyCode.X))
-            EventBroadcaster.Instance.PostEvent(EventNames.ON_WRONG);
 
         // If the next update is reached
         if (Time.time >= nextUpdate)
@@ -102,4 +100,9 @@ public class PlayingScreen : View
         ViewHandler.Instance.Show(ViewNames.DialogNames.GAMEOVER_DIALOG_NAME);
         isGameOver = true;
     }
+
+	void InitializeStats(Parameters parameter){
+		int spawnMaxCount = parameter.GetIntExtra (BlockSpawner.SPAWN_MAX_COUNT, 0);
+		goalHitCount = spawnMaxCount;
+	}
 }

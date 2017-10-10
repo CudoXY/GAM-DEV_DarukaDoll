@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BlockSpawner : MonoBehaviour {
 
+	//parameters
+	public const string SPAWN_MAX_COUNT = "SPAWN_MAX_COUNT";
+
 
 	[Header("Spawn Details")]
 	[SerializeField] int spawnMax;
@@ -16,29 +19,39 @@ public class BlockSpawner : MonoBehaviour {
 	[Header("Spawned")]
 	[SerializeField] List<GameObject> spawnedEntity;
 
+	bool isInitialized = false;
 
 	// Use this for initialization
 	void Start () {
-
-
+		//add observer that notifies ui whenever block is clicked
 		EventBroadcaster.Instance.AddObserver (BlockEventNames.ON_BLOCK_CLICKED, this.OnBlockClicked);
 
 		for (int i = 0; i < spawnMax; i++) {
 			SpawnEntity ();	
 		}
 
+
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (!isInitialized) {
+			//initialize game stats (that are connected with ui//
+			Parameters parameter = new Parameters ();
+			parameter.PutExtra (SPAWN_MAX_COUNT, spawnMax);
+			EventBroadcaster.Instance.PostEvent (EventNames.ON_START_GAME, parameter);
+			isInitialized = true;
+		}
 		
 	}
 
 	void OnBlockClicked(Parameters parameter){
 		string key = parameter.GetStringExtra (KeyInputHandler.KEY_PRESSED, "");
 
-		if (spawnedEntity.Count <= 0)
+		if (CheckIfNoBlock()) {
 			return;
+		}
 
 		if (spawnedEntity [spawnedEntity.Count - 1].GetComponent<Block> ().MyColor.Key.ToString () == key) {
 			DeSpawnEntity (spawnedEntity [spawnedEntity.Count - 1].gameObject, spawnedEntity.Count - 1);
@@ -63,5 +76,13 @@ public class BlockSpawner : MonoBehaviour {
 
 		spawnedEntity.RemoveAt (index);
 		Destroy (b);
+	}
+
+	bool CheckIfNoBlock(){
+		if (spawnedEntity.Count <= 0) {
+			EventBroadcaster.Instance.PostEvent (EventNames.ON_WIN);
+			return true;
+		}
+		return false;
 	}
 }
