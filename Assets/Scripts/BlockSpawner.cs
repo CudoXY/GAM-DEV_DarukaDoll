@@ -35,7 +35,7 @@ public class BlockSpawner : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () {	
 		if (!isInitialized) {
 			//initialize game stats (that are connected with ui//
 			Parameters parameters = new Parameters ();

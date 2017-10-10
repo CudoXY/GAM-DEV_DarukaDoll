@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class Block : MonoBehaviour {
 
+	[SerializeField] Image body;
 	[SerializeField] BlockColor myColor;
 
-	Image image;
 
 	// Use this for initialization
 	void Start () {
@@ -15,8 +15,8 @@ public class Block : MonoBehaviour {
 
 
 		myColor = BlockColor.ALL [Random.Range (0, BlockColor.ALL.Length)];
-		image = GetComponent<Image>();
-		image.color = myColor.MyColor;
+		body.color = myColor.MyColor;
+		body.sprite = myColor.BodySprite;
 
 	}
 
