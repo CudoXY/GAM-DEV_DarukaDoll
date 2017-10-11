@@ -42,8 +42,13 @@ public class Player : MonoBehaviour {
         if (!Input.anyKeyDown)
             return;
 
+        var bottomBlock = BlockSpawner.Instance.GetBottomBlock();
+
+        if (bottomBlock == null)
+            return;
+
         var parameters = new Parameters();
-        parameters.PutExtra(MatchHandler.PARAM_TARGETCOLOR, (int) BlockSpawner.Instance.GetBottomBlock().Color);
+        parameters.PutExtra(MatchHandler.PARAM_TARGETCOLOR, (int) bottomBlock.Color);
 
         var playerControls = new [] {keyRed, keyBlue, keyGreen};
 
@@ -62,6 +67,10 @@ public class Player : MonoBehaviour {
     {
         correctHits++;
         lblCorrect.text = "CORRECT: " + correctHits;
+
+        // Shake screen
+        CameraShake.Shake(0.25f, 2f);
+
         if (correctHits < LevelManager.Instance.GetGoalHitCount())
             return;
 
@@ -77,5 +86,8 @@ public class Player : MonoBehaviour {
     {
         wrongHits++;
         lblWrong.text = "WRONG: " + wrongHits;
+
+        // Shake screen
+        CameraShake.Shake(0.25f, 15f);
     }
 }

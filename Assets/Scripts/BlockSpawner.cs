@@ -59,14 +59,19 @@ public class BlockSpawner : MonoBehaviour {
 
     public Block GetBottomBlock()
     {
+        if (spawnedEntity.Count <= 0)
+            return null;
+
         return spawnedEntity[spawnedEntity.Count - 1].gameObject.GetComponent<Block>();
     }
 
 	void DestroyBottom()
-	{
+    {
+        if (spawnedEntity.Count <= 0)
+            return;
+
 	    var block = spawnedEntity[spawnedEntity.Count - 1];
 		spawnedEntity.RemoveAt(spawnedEntity.Count - 1);
         Destroy(block);
-        Debug.Log(GetBottomBlock().Color);
 	}
 }
